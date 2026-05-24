@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  # Takes the contents of our 'app' folder and drops it into the EC2 user directory
+  - source: /app
+    destination: /home/ec2-user/server-monitor
+hooks:
+  ApplicationStart:
+    # Runs the startup script as the default EC2 admin user
+    - location: scripts/start.sh
+      timeout: 300
+      runas: ec2-user

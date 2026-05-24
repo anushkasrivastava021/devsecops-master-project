@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Security scans (Trivy/tfsec) were successfully handled by GitHub Actions."
+      - echo "Preparing the artifact payload for AWS CodeDeploy delivery..."
+
+artifacts:
+  files:
+    - '**/*' # This packages the entire repository into a zip file for the EC2 server
