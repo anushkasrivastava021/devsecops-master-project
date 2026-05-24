@@ -26,6 +26,7 @@ jobs:
           # We use a soft fail right now because the terraform folder is currently empty.
           # In a strict production environment, this would be false to break the build!
           soft_fail: true 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # ---------------------------------------------
       # 2. BUILD THE SECURE CONTAINER
