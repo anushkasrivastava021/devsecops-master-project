@@ -19,14 +19,8 @@ jobs:
       # ---------------------------------------------
       # 1. INFRASTRUCTURE SECURITY SCAN (tfsec)
       # ---------------------------------------------
-      - name: Run tfsec on Terraform code
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          working_directory: ./terraform
-          # We use a soft fail right now because the terraform folder is currently empty.
-          # In a strict production environment, this would be false to break the build!
-          soft_fail: true 
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tfsec via Docker (Bypass API Limits)
+        run: docker run --rm -v ${{ github.workspace }}/terraform:/src aquasec/tfsec /src --soft-fail
 
       # ---------------------------------------------
       # 2. BUILD THE SECURE CONTAINER
