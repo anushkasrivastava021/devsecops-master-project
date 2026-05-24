@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-monitor-deployment
+  labels:
+    app: server-monitor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: server-monitor
+  template:
+    metadata:
+      labels:
+        app: server-monitor
+    spec:
+      containers:
+      - name: python-monitor
+        image: server-monitor:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        # This safely pulls the unsealed secret at runtime!
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: monitor-secret
+              key: api-token
